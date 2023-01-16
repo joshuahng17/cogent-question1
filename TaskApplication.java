@@ -30,7 +30,7 @@ class TaskBean{
 
 public class TaskApplication{
 	
-	static TaskBean[] TaskArray = new TaskBean[100];
+	static TaskBean[] TaskArray = new TaskBean[10];
 	static int TaskSize = 0;
 	
 	public static void main(String[] args){
@@ -54,7 +54,11 @@ public class TaskApplication{
 					System.out.println("Added a new task");
 					break;
 				case 2:
-					TaskArray[(TaskSize - 1)].setTaskName("New Name");
+					System.out.println("Name of task to be updated: ");
+					String oldName = sc.nextLine();
+					System.out.println("New name of task: ");
+					String newName = sc.nextLine();
+					UpdateTask(oldName, newName);
 					System.out.println("Updated a task");
 					break;
 				case 3:
@@ -84,6 +88,14 @@ public class TaskApplication{
 				TaskArray[i] = newTask;
 		}
 		TaskSize++;
+		return;
+	}
+	
+	public static void UpdateTask(String oldName, String newName){
+		for(int i=0;i<TaskArray.length;i++){
+			if(TaskArray[i] != null && TaskArray[i].getTaskName() == oldName)
+				TaskArray[i].setTaskName(newName);
+		}
 		return;
 	}
 }
