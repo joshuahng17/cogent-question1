@@ -28,13 +28,67 @@ class TaskBean{
 	}
 }
 
-public class TaskApplication{
+class TaskControls{
+	public static void AddTask(TaskBean[] array, int size){
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Name of task: ");
+		String name = sc.nextLine();
+		TaskBean newTask = new TaskBean(size, name);
+		for(int i=0;i<array.length;i++){
+			if(array[i] == null) {
+				array[i] = newTask;
+				break;
+			}
+		}
+		size++;
+		return;
+	}
 	
-	static TaskBean[] TaskArray = new TaskBean[10];
-	static int TaskSize = 0;
+	public static void UpdateTask(TaskBean[] array){
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Name of task to be updated: ");
+		String oldName = sc.nextLine();
+		System.out.println("New name of task: ");
+		String newName = sc.nextLine();
+		for(int i=0;i<array.length;i++){
+			if(array[i] != null && array[i].getTaskName() == oldName) {
+				array[i].setTaskName(newName);
+				break;
+			}
+		}
+		return;
+	}
+	
+	public static void DeleteTask(TaskBean[] array, int size){
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Name of task to be deleted: ");
+		String name = sc.nextLine();
+		for(int i=0;i<array.length;i++){
+			if(array[i] != null && array[i].getTaskName() == name) {
+				array[i] = null;
+				break;
+			}
+		}
+		size--;
+		return;
+	}
+	
+	public static void SearchTask(TaskBean[] array){
+		for(int i=0;i<array.length;i++){
+			if(array[i] != null) {
+				System.out.println("ID: " + array[i].getTaskId());
+				System.out.println("Name: " + array[i].getTaskName() + "\n");
+			}
+		}
+	}
+}
+
+public class TaskApplication{
 	
 	public static void main(String[] args){
 		
+		TaskBean[] TaskArray = new TaskBean[10];
+		int TaskSize = 0;
 		Scanner sc=new Scanner(System.in);
 		int choice;
 		do {
@@ -48,30 +102,23 @@ public class TaskApplication{
 			choice=sc.nextInt();
 			switch(choice) {
 				case 1:
-					System.out.println("Name of task: ");
-					String name = sc.nextLine();
-					AddTask(name);
+					TaskControls.AddTask(TaskArray, TaskSize);
 					System.out.println("Added a new task");
 					break;
 				case 2:
-					System.out.println("Name of task to be updated: ");
-					String oldName = sc.nextLine();
-					System.out.println("New name of task: ");
-					String newName = sc.nextLine();
-					UpdateTask(oldName, newName);
+					TaskControls.UpdateTask(TaskArray);
 					System.out.println("Updated a task");
 					break;
 				case 3:
-					System.out.println("Name of task to be deleted: ");
-					String deleted = sc.nextLine();
-					DeleteTask(deleted);
+					TaskControls.DeleteTask(TaskArray, TaskSize);
 					System.out.println("Deleted a task");
 					break;
 				case 4:
-					SearchTask();
+					TaskControls.SearchTask(TaskArray);
 					break;
 				case 0:
 					System.out.println("Goodbye");
+					break;
 				default:
 					System.out.println("Invalid Input");
 					break;
@@ -80,31 +127,45 @@ public class TaskApplication{
 		sc.close();
 		return;
 	}
-	
-	public static void AddTask(String name){
+	/*
+	public static void AddTask(){
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Name of task: ");
+		String name = sc.nextLine();
 		TaskBean newTask = new TaskBean(TaskSize, name);
 		for(int i=0;i<TaskArray.length;i++){
 			if(TaskArray[i] == null)
 				TaskArray[i] = newTask;
 		}
 		TaskSize++;
+		sc.close();
 		return;
 	}
 	
-	public static void UpdateTask(String oldName, String newName){
+	public static void UpdateTask(){
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Name of task to be updated: ");
+		String oldName = sc.nextLine();
+		System.out.println("New name of task: ");
+		String newName = sc.nextLine();
 		for(int i=0;i<TaskArray.length;i++){
 			if(TaskArray[i] != null && TaskArray[i].getTaskName() == oldName)
 				TaskArray[i].setTaskName(newName);
 		}
+		sc.close();
 		return;
 	}
 	
-	public static void DeleteTask(String name){
+	public static void DeleteTask(){
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Name of task to be deleted: ");
+		String name = sc.nextLine();
 		for(int i=0;i<TaskArray.length;i++){
 			if(TaskArray[i] != null && TaskArray[i].getTaskName() == name)
 				TaskArray[i] = null;
 		}
 		TaskSize--;
+		sc.close();
 		return;
 	}
 	
@@ -114,4 +175,5 @@ public class TaskApplication{
 			System.out.println("Name: " + TaskArray[i].getTaskName() + "\n");
 		}
 	}
+	*/
 }
