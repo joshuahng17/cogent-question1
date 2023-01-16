@@ -62,7 +62,9 @@ public class TaskApplication{
 					System.out.println("Updated a task");
 					break;
 				case 3:
-					TaskArray[TaskSize--] = null;
+					System.out.println("Name of task to be deleted: ");
+					String name = sc.nextLine();
+					DeleteTask(name);
 					System.out.println("Deleted a task");
 					break;
 				case 4:
@@ -96,6 +98,15 @@ public class TaskApplication{
 			if(TaskArray[i] != null && TaskArray[i].getTaskName() == oldName)
 				TaskArray[i].setTaskName(newName);
 		}
+		return;
+	}
+	
+	public static void UpdateTask(String name){
+		for(int i=0;i<TaskArray.length;i++){
+			if(TaskArray[i] != null && TaskArray[i].getTaskName() == name)
+				TaskArray[i] = null;
+		}
+		TaskSize--;
 		return;
 	}
 }
