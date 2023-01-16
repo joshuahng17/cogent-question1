@@ -63,14 +63,12 @@ public class TaskApplication{
 					break;
 				case 3:
 					System.out.println("Name of task to be deleted: ");
-					String name = sc.nextLine();
-					DeleteTask(name);
+					String deleted = sc.nextLine();
+					DeleteTask(deleted);
 					System.out.println("Deleted a task");
 					break;
 				case 4:
-					for(int i=0;i<TaskSize;i++){
-						System.out.println(TaskArray[i].getTaskName());
-					}
+					SearchTask();
 					break;
 				case 0:
 					System.out.println("Goodbye");
@@ -101,12 +99,19 @@ public class TaskApplication{
 		return;
 	}
 	
-	public static void UpdateTask(String name){
+	public static void DeleteTask(String name){
 		for(int i=0;i<TaskArray.length;i++){
 			if(TaskArray[i] != null && TaskArray[i].getTaskName() == name)
 				TaskArray[i] = null;
 		}
 		TaskSize--;
 		return;
+	}
+	
+	public static void SearchTask(){
+		for(int i=0;i<TaskArray.length;i++){
+			System.out.println("ID: " + TaskArray[i].getTaskId());
+			System.out.println("Name: " + TaskArray[i].getTaskName() + "\n");
+		}
 	}
 }
